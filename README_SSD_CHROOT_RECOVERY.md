@@ -37,7 +37,7 @@ lsblk -f
 
 ## 3. 挂载故障系统分区
 
-如果外接盘被自动挂载在 `/media/...`，先卸载后再按标准路径挂载（把下面路径替换成你自己的自动挂载路径）：
+如果外接盘被自动挂载在 `/media/...`，先卸载后再按标准路径挂载（把下面路径替换成你自己的自动挂载路径，例如：`/media/alice/USB-DISK` 或 `/media/alice/1a2b3c4d-uuid`）：
 
 ```bash
 sudo umount /media/<用户名>/<自动挂载目录名>
@@ -46,7 +46,7 @@ sudo umount /media/<用户名>/<自动挂载目录名>
 挂载 root 到 `/mnt`：
 
 ```bash
-sudo mount /dev/sda2 /mnt
+sudo mount /dev/<故障根分区> /mnt
 ls /mnt
 ```
 
@@ -56,7 +56,7 @@ ls /mnt
 
 ```bash
 sudo mkdir -p /mnt/boot/efi
-sudo mount /dev/sda1 /mnt/boot/efi
+sudo mount /dev/<故障EFI分区> /mnt/boot/efi
 ```
 
 ---
@@ -172,17 +172,17 @@ sudo fuser -vm /mnt
 
 ## 8. 一键命令模板（按顺序执行）
 
-> 下面仅在你的故障盘确实是 `/dev/sda2` + `/dev/sda1` 时使用。  
+> 下面仅在你已把设备名替换成自己机器真实分区时使用（例如：`/dev/nvme1n1p2`、`/dev/sdb1`）。  
 > `/media/<用户名>/<自动挂载目录名>` 请替换为你自己系统里自动挂载的真实路径（目录名可能是卷标，也可能是 UUID）。
 
 ```bash
 sudo umount /media/<用户名>/<自动挂载目录名>
 
-sudo mount /dev/sda2 /mnt
+sudo mount /dev/<故障根分区> /mnt
 ls /mnt
 
 sudo mkdir -p /mnt/boot/efi
-sudo mount /dev/sda1 /mnt/boot/efi
+sudo mount /dev/<故障EFI分区> /mnt/boot/efi
 
 sudo mount --bind /dev /mnt/dev
 sudo mount --bind /proc /mnt/proc
