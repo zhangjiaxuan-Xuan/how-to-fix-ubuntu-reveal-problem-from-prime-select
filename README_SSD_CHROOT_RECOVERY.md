@@ -37,10 +37,10 @@ lsblk -f
 
 ## 3. 挂载故障系统分区
 
-如果外接盘被自动挂载在 `/media/...`，先卸载后再按标准路径挂载：
+如果外接盘被自动挂载在 `/media/...`，先卸载后再按标准路径挂载（把下面路径替换成你自己的自动挂载路径）：
 
 ```bash
-sudo umount /media/x/6f14b855-4c6b-451e-af4e-cfb74ec62395
+sudo umount /media/<用户名>/<你的UUID>
 ```
 
 挂载 root 到 `/mnt`：
@@ -172,10 +172,11 @@ sudo fuser -vm /mnt
 
 ## 8. 一键命令模板（按顺序执行）
 
-> 下面仅在你的故障盘确实是 `/dev/sda2` + `/dev/sda1` 时使用。
+> 下面仅在你的故障盘确实是 `/dev/sda2` + `/dev/sda1` 时使用。  
+> `/media/<用户名>/<你的UUID>` 请替换为你自己系统里自动挂载的真实路径。
 
 ```bash
-sudo umount /media/x/6f14b855-4c6b-451e-af4e-cfb74ec62395
+sudo umount /media/<用户名>/<你的UUID>
 
 sudo mount /dev/sda2 /mnt
 ls /mnt
