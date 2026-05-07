@@ -40,7 +40,7 @@ lsblk -f
 如果外接盘被自动挂载在 `/media/...`，先卸载后再按标准路径挂载（把下面路径替换成你自己的自动挂载路径）：
 
 ```bash
-sudo umount /media/<用户名>/<你的UUID>
+sudo umount /media/<用户名>/<自动挂载目录名>
 ```
 
 挂载 root 到 `/mnt`：
@@ -173,10 +173,10 @@ sudo fuser -vm /mnt
 ## 8. 一键命令模板（按顺序执行）
 
 > 下面仅在你的故障盘确实是 `/dev/sda2` + `/dev/sda1` 时使用。  
-> `/media/<用户名>/<你的UUID>` 请替换为你自己系统里自动挂载的真实路径。
+> `/media/<用户名>/<自动挂载目录名>` 请替换为你自己系统里自动挂载的真实路径（目录名可能是卷标，也可能是 UUID）。
 
 ```bash
-sudo umount /media/<用户名>/<你的UUID>
+sudo umount /media/<用户名>/<自动挂载目录名>
 
 sudo mount /dev/sda2 /mnt
 ls /mnt
@@ -193,7 +193,7 @@ sudo cp /etc/resolv.conf /mnt/etc/resolv.conf
 sudo chroot /mnt
 prime-select query
 prime-select on-demand
-prime-select nvidia
+# 如果你明确需要独显常驻，可改为执行：prime-select nvidia
 update-initramfs -u
 update-grub
 exit
